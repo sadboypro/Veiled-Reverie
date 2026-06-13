@@ -75,7 +75,10 @@ export async function POST(request: Request) {
     const detail = await res.text().catch(() => "");
     console.error("Resend error:", res.status, detail);
     return NextResponse.json(
-      { error: "Something went wrong sending your message. Please try again." },
+      {
+        error: "Something went wrong sending your message. Please try again.",
+        _debug: { resendStatus: res.status, resendDetail: detail },
+      },
       { status: 502 },
     );
   }
