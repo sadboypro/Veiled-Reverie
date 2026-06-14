@@ -47,7 +47,7 @@ export default function Preloader() {
     let frame: number;
     let finished = false;
     const start = performance.now();
-    const DURATION = 1300;
+    const DURATION = 700;
     const settle = () => {
       if (finished) return;
       finished = true;
@@ -60,7 +60,7 @@ export default function Preloader() {
       if (p < 1) {
         frame = requestAnimationFrame(tick);
       } else {
-        setTimeout(settle, 250);
+        setTimeout(settle, 120);
       }
     };
     frame = requestAnimationFrame(tick);
@@ -69,7 +69,7 @@ export default function Preloader() {
     const guard = setTimeout(() => {
       setProgress(100);
       settle();
-    }, DURATION + 600);
+    }, DURATION + 350);
     return () => {
       cancelAnimationFrame(frame);
       clearTimeout(guard);

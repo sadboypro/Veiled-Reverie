@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Preloader />
-      <Header revealDelay={1.6} />
+      <Header revealDelay={0.9} />
       <main>
         <Hero />
         <Philosophy />

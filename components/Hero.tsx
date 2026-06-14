@@ -31,18 +31,26 @@ export default function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.15]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.9]);
 
+  // Defer the rotation frames until after the first image has painted, so the
+  // LCP image isn't competing with three other full-screen decodes on load.
+  const [mountRest, setMountRest] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setMountRest(true), 1600);
+    return () => clearTimeout(t);
+  }, []);
+
   // Slow crossfade between hero frames.
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || !mountRest) return;
     const id = setInterval(
       () => setActive((i) => (i + 1) % heroImages.length),
       5200,
     );
     return () => clearInterval(id);
-  }, [reduce]);
+  }, [reduce, mountRest]);
 
   // Hero content waits for the preloader curtain to lift on first load only.
-  const base = reduce || seen ? 0 : 1.7;
+  const base = reduce || seen ? 0 : 0.85;
 
   return (
     <section
@@ -52,24 +60,26 @@ export default function Hero() {
     >
       {/* Media */}
       <motion.div className="absolute inset-0" style={{ y, scale }}>
-        {heroImages.map((src, i) => (
-          <motion.div
-            key={src}
-            className="absolute inset-0"
-            initial={false}
-            animate={{ opacity: i === active ? 1 : 0 }}
-            transition={{ duration: reduce ? 0 : 1.6, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Image
-              src={src}
-              alt=""
-              fill
-              priority={i === 0}
-              sizes="100vw"
-              className="object-cover"
-            />
-          </motion.div>
-        ))}
+        {heroImages.map((src, i) =>
+          i !== 0 && !mountRest ? null : (
+            <motion.div
+              key={src}
+              className="absolute inset-0"
+              initial={false}
+              animate={{ opacity: i === active ? 1 : 0 }}
+              transition={{ duration: reduce ? 0 : 1.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Image
+                src={src}
+                alt=""
+                fill
+                priority={i === 0}
+                sizes="100vw"
+                className="object-cover"
+              />
+            </motion.div>
+          ),
+        )}
         <motion.div
           className="absolute inset-0 bg-void"
           style={{ opacity: overlayOpacity }}
