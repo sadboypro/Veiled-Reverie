@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const work = getWork(slug);
   if (!work) return { title: "Work not found" };
 
-  const description = work.story[0] ?? work.narrative;
+  const description = work.story?.[0] ?? work.narrative;
   return {
     title: work.title,
     description,
@@ -97,38 +97,34 @@ export default async function WorkDetailPage({ params }: Params) {
             </div>
           </Reveal>
 
-          {/* Story + meta */}
-          <div className="mt-16 grid gap-12 md:grid-cols-12 md:gap-10">
-            <Reveal className="md:col-span-7">
-              <div className="space-y-5 text-balance text-mist md:text-lg">
+          {/* Story — shown only when a real, authored account exists */}
+          {work.story && work.story.length > 0 && (
+            <Reveal className="mt-16">
+              <div className="mx-auto max-w-3xl space-y-5 text-balance text-mist md:text-lg">
                 {work.story.map((para, i) => (
                   <p key={i}>{para}</p>
                 ))}
               </div>
             </Reveal>
+          )}
 
-            <Reveal delay={0.1} className="md:col-span-5 md:pl-8">
-              <dl className="flex flex-col">
-                {[
-                  { k: "Series", v: work.title },
-                  { k: "Category", v: work.category },
-                  { k: "Year", v: work.year },
-                  { k: "Location", v: work.meta.location },
-                  { k: "Made with", v: work.meta.camera },
-                ].map((row) => (
-                  <div
-                    key={row.k}
-                    className="flex items-baseline justify-between gap-6 border-t border-ash/40 py-4 last:border-b"
-                  >
-                    <dt className="text-xs tracking-[0.2em] text-smoke uppercase">
-                      {row.k}
-                    </dt>
-                    <dd className="text-right text-sm text-bone">{row.v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </Reveal>
-          </div>
+          {/* Capture details */}
+          <Reveal className="mt-12">
+            <dl className="flex flex-wrap gap-x-12 gap-y-5 border-t border-ash/40 pt-6">
+              <div>
+                <dt className="text-xs tracking-[0.2em] text-smoke uppercase">Category</dt>
+                <dd className="mt-1 text-bone">{work.category}</dd>
+              </div>
+              <div>
+                <dt className="text-xs tracking-[0.2em] text-smoke uppercase">Year</dt>
+                <dd className="mt-1 text-bone">{work.year}</dd>
+              </div>
+              <div>
+                <dt className="text-xs tracking-[0.2em] text-smoke uppercase">Made with</dt>
+                <dd className="mt-1 text-bone">{work.meta.camera}</dd>
+              </div>
+            </dl>
+          </Reveal>
 
           {/* Companion frames */}
           {work.frames.length > 0 && (
