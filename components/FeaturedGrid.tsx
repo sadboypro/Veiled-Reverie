@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { clipReveal, fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { works, type Work } from "@/lib/works";
+import { BLUR_DATA_URL } from "@/lib/blur";
 
 // Asymmetric magazine spans (12-col grid on desktop).
 const spanClass: Record<Work["span"], string> = {
@@ -74,7 +75,7 @@ function WorkCard({ work, index }: { work: Work; index: number }) {
       whileInView="visible"
       viewport={viewportOnce}
     >
-      <Link href="/works" className="block h-full w-full">
+      <Link href={`/works/${work.id}`} className="block h-full w-full">
         {/* Image scales + pans gently on hover */}
         <motion.div
           className="absolute inset-0"
@@ -86,11 +87,13 @@ function WorkCard({ work, index }: { work: Work; index: number }) {
             alt={work.title}
             fill
             sizes="(max-width: 768px) 100vw, 58vw"
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
             className="object-cover"
           />
         </motion.div>
 
-        {/* Cinematic scrim — deepens on hover to surface text */}
+        {/* Cinematic scrim, deepens on hover to surface text */}
         <div className="absolute inset-0 bg-gradient-to-t from-void/90 via-void/10 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
 
         {/* Meta */}
@@ -103,7 +106,7 @@ function WorkCard({ work, index }: { work: Work; index: number }) {
               {work.title}
             </h3>
 
-            {/* Hidden narrative line — reveals on hover */}
+            {/* Hidden narrative line, reveals on hover */}
             <div className="grid grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr]">
               <p className="min-h-0 max-w-xs translate-y-2 text-sm text-mist opacity-0 transition-all duration-[400ms] group-hover:translate-y-0 group-hover:opacity-100">
                 {work.narrative}

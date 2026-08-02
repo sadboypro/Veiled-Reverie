@@ -4,9 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { spring, fadeUp, viewportOnce } from "@/lib/motion";
+import { BLUR_DATA_URL } from "@/lib/blur";
 
 /**
- * The Veil — the site's signature interaction.
+ * The Veil: the site's signature interaction.
  * A shrouded photograph (darkened, blurred, grain) that the visitor reveals
  * by moving a soft "lens" of clarity. Embodies the brand: revealing what is felt.
  *
@@ -65,7 +66,7 @@ export default function Unveil() {
     <section
       ref={sectionRef}
       className="relative px-6 py-24 md:px-12 md:py-32"
-      aria-label="Featured photograph — interactive reveal"
+      aria-label="Featured photograph, interactive reveal"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
@@ -138,9 +139,11 @@ export default function Unveil() {
               {/* Sharp photograph underneath */}
               <Image
                 src="/images/a_1.jpg"
-                alt="Reverie — a veiled figure revealed"
+                alt="Reverie, a veiled figure revealed"
                 fill
                 sizes="(max-width: 768px) 100vw, 66vw"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
                 className="object-cover"
               />
 

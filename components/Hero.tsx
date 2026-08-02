@@ -12,6 +12,7 @@ import {
 import { ArrowDownRight } from "lucide-react";
 import { spring } from "@/lib/motion";
 import { heroImages } from "@/lib/works";
+import { BLUR_DATA_URL } from "@/lib/blur";
 
 export default function Hero() {
   const reduce = useReducedMotion();
@@ -75,6 +76,8 @@ export default function Hero() {
                 fill
                 priority={i === 0}
                 sizes="100vw"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
                 className="object-cover"
               />
             </motion.div>

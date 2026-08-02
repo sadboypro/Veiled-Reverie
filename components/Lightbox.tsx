@@ -1,11 +1,13 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import type { GalleryItem } from "@/lib/gallery";
 import { spring } from "@/lib/motion";
+import { BLUR_DATA_URL } from "@/lib/blur";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 
 type Props = {
   items: GalleryItem[];
@@ -18,6 +20,8 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
   const reduce = useReducedMotion();
   const open = index !== null;
   const item = open ? items[index] : null;
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(open, dialogRef);
 
   const go = useCallback(
     (dir: 1 | -1) => {
@@ -46,7 +50,9 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
     <AnimatePresence>
       {open && item && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-void/95 backdrop-blur-sm"
+          ref={dialogRef}
+          tabIndex={-1}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-void/95 backdrop-blur-sm outline-none"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -54,7 +60,7 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
           onClick={onClose}
           role="dialog"
           aria-modal="true"
-          aria-label={`${item.title} — enlarged view`}
+          aria-label={`${item.title}, enlarged view`}
         >
           {/* Close */}
           <button
@@ -106,6 +112,8 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
                 height={1750}
                 sizes="88vw"
                 className="max-h-[78vh] w-auto object-contain"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
                 priority
               />
             </div>

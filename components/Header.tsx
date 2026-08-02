@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { spring, staggerContainer } from "@/lib/motion";
+import { useFocusTrap } from "@/lib/useFocusTrap";
 
 const links = [
   { label: "Home", href: "/", index: "01" },
@@ -17,6 +18,8 @@ export default function Header({ revealDelay = 0 }: { revealDelay?: number }) {
   const reduce = useReducedMotion();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(open, menuRef);
   // If the preloader already ran this session, reveal the nav immediately.
   const [seen] = useState(
     () => typeof window !== "undefined" && sessionStorage.getItem("vr_seen") === "1",
@@ -81,7 +84,13 @@ export default function Header({ revealDelay = 0 }: { revealDelay?: number }) {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-40 flex flex-col justify-center bg-ink px-8 md:hidden"
+            ref={menuRef}
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+            onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
+            className="fixed inset-0 z-40 flex flex-col justify-center bg-ink px-8 outline-none md:hidden"
             initial={reduce ? { opacity: 0 } : { clipPath: "inset(0% 0% 100% 0%)" }}
             animate={reduce ? { opacity: 1 } : { clipPath: "inset(0% 0% 0% 0%)" }}
             exit={reduce ? { opacity: 0 } : { clipPath: "inset(0% 0% 100% 0%)" }}

@@ -71,7 +71,7 @@ export default function Footer() {
           </div>
         </motion.div>
 
-        <div className="mt-12 text-xs text-smoke/70">
+        <div className="mt-12 text-xs text-smoke">
           © {new Date().getFullYear()} Veiled Reverie. All frames reserved.
         </div>
       </motion.div>

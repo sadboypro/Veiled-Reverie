@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
- * Veiled Reverie — cinematic theme tokens (Tailwind v4 @theme)
+ * Veiled Reverie cinematic theme tokens (Tailwind v4 @theme)
  * Deep blacks, muted charcoals, sharp white type.
  * ------------------------------------------------------------------ */
 @theme {
@@ -10,7 +10,7 @@
   --color-charcoal: #121214;
   --color-charcoal-2: #1a1a1d;
   --color-ash: #2a2a2e;
-  --color-smoke: #6b6b70;
+  --color-smoke: #86867f; /* lifted from #6b6b70 → ~5:1 on void, passes WCAG AA */
   --color-mist: #9a9aa0;
   --color-bone: #e8e6e1;
   --color-white-sharp: #fafafa;
@@ -50,7 +50,7 @@ body {
   color: var(--color-void);
 }
 
-/* Visible, on-brand keyboard focus — critical on a near-black UI */
+/* Visible, on-brand keyboard focus, critical on a near-black UI */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
@@ -100,7 +100,7 @@ body {
 }
 
 /* ------------------------------------------------------------------ *
- * Accessibility — strictly honor reduced-motion
+ * Accessibility: strictly honor reduced-motion
  * ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   html {

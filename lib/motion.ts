@@ -1,23 +1,23 @@
 import type { Variants, Transition } from "framer-motion";
 
 /* ------------------------------------------------------------------ *
- * Spring physics — the signature of the redesign.
+ * Spring physics: the signature of the redesign.
  * We avoid linear/easeInOut tweens in favor of springs that feel
  * weighted and filmic.
  * ------------------------------------------------------------------ */
 export const spring = {
-  /** Gentle, heavy reveal — for large hero/headline elements. */
+  /** Gentle, heavy reveal, for large hero/headline elements. */
   soft: { type: "spring", stiffness: 90, damping: 20, mass: 1 } as Transition,
   /** Standard content reveal. */
   base: { type: "spring", stiffness: 140, damping: 22, mass: 0.9 } as Transition,
-  /** Snappy, responsive — for hover / interactive feedback. */
+  /** Snappy, responsive, for hover and interactive feedback. */
   snappy: { type: "spring", stiffness: 300, damping: 26, mass: 0.6 } as Transition,
-  /** Slow cinematic drift — for parallax/scale on imagery. */
+  /** Slow cinematic drift, for parallax/scale on imagery. */
   drift: { type: "spring", stiffness: 60, damping: 18, mass: 1.2 } as Transition,
 };
 
 /* ------------------------------------------------------------------ *
- * Reveal variants — text & blocks stagger into view on scroll.
+ * Reveal variants: text and blocks stagger into view on scroll.
  * `custom` carries a per-element delay (seconds).
  * ------------------------------------------------------------------ */
 export const fadeUp: Variants = {
@@ -38,7 +38,7 @@ export const fadeIn: Variants = {
   }),
 };
 
-/* Masked line reveal — words/headlines rise out of an overflow-hidden clip. */
+/* Masked line reveal: words/headlines rise out of an overflow-hidden clip. */
 export const lineRise: Variants = {
   hidden: { y: "110%" },
   visible: (delay: number = 0) => ({
@@ -47,7 +47,7 @@ export const lineRise: Variants = {
   }),
 };
 
-/* Image clip-reveal — wipes upward to expose the photo. */
+/* Image clip-reveal: wipes upward to expose the photo. */
 export const clipReveal: Variants = {
   hidden: { clipPath: "inset(100% 0% 0% 0%)" },
   visible: (delay: number = 0) => ({
@@ -57,7 +57,7 @@ export const clipReveal: Variants = {
 };
 
 /* ------------------------------------------------------------------ *
- * Stagger containers — pace children into view.
+ * Stagger containers: pace children into view.
  * ------------------------------------------------------------------ */
 export const staggerContainer: Variants = {
   hidden: {},

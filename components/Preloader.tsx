@@ -32,7 +32,7 @@ export default function Preloader() {
       setDone(true);
     };
 
-    // Already shown this session — don't gate the user again.
+    // Already shown this session, so don't gate the user again.
     if (typeof window !== "undefined" && sessionStorage.getItem("vr_seen") === "1") {
       setProgress(100);
       setDone(true);
@@ -47,7 +47,9 @@ export default function Preloader() {
     let frame: number;
     let finished = false;
     const start = performance.now();
-    const DURATION = 700;
+    // Kept intentionally brief: a fleeting brand beat, not a real gate.
+    // Session-skipped after the first view (see vr_seen above).
+    const DURATION = 480;
     const settle = () => {
       if (finished) return;
       finished = true;
@@ -60,7 +62,7 @@ export default function Preloader() {
       if (p < 1) {
         frame = requestAnimationFrame(tick);
       } else {
-        setTimeout(settle, 120);
+        setTimeout(settle, 80);
       }
     };
     frame = requestAnimationFrame(tick);
@@ -69,7 +71,7 @@ export default function Preloader() {
     const guard = setTimeout(() => {
       setProgress(100);
       settle();
-    }, DURATION + 350);
+    }, DURATION + 300);
     return () => {
       cancelAnimationFrame(frame);
       clearTimeout(guard);

@@ -62,7 +62,7 @@ export async function POST(request: Request) {
       reply_to: email,
       subject: `New inquiry from ${name}`,
       html: `
-        <h2>New inquiry — Veiled Reverie</h2>
+        <h2>New Veiled Reverie inquiry</h2>
         <p><strong>Name:</strong> ${safe(name)}</p>
         <p><strong>Email:</strong> ${safe(email)}</p>
         <p><strong>Message:</strong></p>

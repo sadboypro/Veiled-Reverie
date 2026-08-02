@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import Lightbox from "@/components/Lightbox";
 import { spring, fadeUp, viewportOnce } from "@/lib/motion";
 import { gallery, categories, type Category } from "@/lib/gallery";
+import { BLUR_DATA_URL } from "@/lib/blur";
 
 type Filter = "All" | Category;
 
@@ -17,7 +18,7 @@ export default function WorksPage() {
   const [active, setActive] = useState<number | null>(null);
   const [cols, setCols] = useState(1);
 
-  // Responsive column count — drives an ordered (round-robin) masonry so the
+  // Responsive column count, drives an ordered (round-robin) masonry so the
   // visual reading order matches the DOM order (CSS columns would not).
   useEffect(() => {
     const compute = () => {
@@ -82,7 +83,7 @@ export default function WorksPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...spring.base, delay: 0.3 }}
           >
-            A growing archive of frames — portraits, fashion, documentary and
+            A growing archive of frames: portraits, fashion, documentary and
             quiet conceptual studies. Each one a moment held a little longer.
           </motion.p>
 
@@ -101,7 +102,7 @@ export default function WorksPage() {
                   setActive(null);
                 }}
                 className={`relative -my-1 py-3 text-sm tracking-wide transition-colors [touch-action:manipulation] ${
-                  filter === tab ? "text-white-sharp" : "text-smoke hover:text-mist"
+                  filter === tab ? "text-white-sharp" : "text-mist hover:text-white-sharp"
                 }`}
               >
                 {tab}
@@ -117,7 +118,7 @@ export default function WorksPage() {
           </motion.div>
         </div>
 
-        {/* Ordered masonry — reading order matches DOM order */}
+        {/* Ordered masonry, reading order matches DOM order */}
         <h2 className="sr-only">{filter === "All" ? "All works" : `${filter} works`}</h2>
         <div key={`${filter}-${cols}`} className="mx-auto mt-10 flex max-w-7xl gap-4">
           {columns.map((col, ci) => (
@@ -147,6 +148,8 @@ export default function WorksPage() {
                       width={800}
                       height={1000}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
                       className="h-auto w-full object-cover"
                     />
                   </motion.div>

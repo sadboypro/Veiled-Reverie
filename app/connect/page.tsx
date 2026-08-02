@@ -46,7 +46,7 @@ export default function ConnectPage() {
       setStatus("sent");
       setForm({ name: "", email: "", message: "" });
     } catch {
-      setError("Network error — please check your connection and try again.");
+      setError("Network error. Please check your connection and try again.");
       setStatus("error");
     }
   };
@@ -155,8 +155,7 @@ export default function ConnectPage() {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="group mt-2 inline-flex w-fit items-center gap-3 border border-bone px-8 py-4 text-sm tracking-wide text-void transition-colors disabled:cursor-not-allowed disabled:opacity-60"
-                style={{ backgroundColor: "var(--color-bone)" }}
+                className="group mt-2 inline-flex w-fit items-center gap-3 border border-bone bg-bone px-8 py-4 text-sm tracking-wide text-void transition-colors hover:border-accent hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:border-bone disabled:hover:bg-bone"
               >
                 <span>{status === "sending" ? "Sending…" : "Send the message"}</span>
                 <ArrowUpRight
@@ -169,7 +168,7 @@ export default function ConnectPage() {
                 {status === "sent" && (
                   <p className="flex items-center gap-2 text-xs text-accent">
                     <Check size={14} className="shrink-0" />
-                    <span>Message sent — thank you. I&apos;ll be in touch soon.</span>
+                    <span>Message sent. Thank you, I&apos;ll be in touch soon.</span>
                   </p>
                 )}
                 {status === "error" && (
@@ -186,7 +185,7 @@ export default function ConnectPage() {
                 )}
                 {(status === "idle" || status === "sending") && (
                   <p className="text-xs text-smoke">
-                    I read every message personally — expect a reply within a few days.
+                    I read every message personally, so expect a reply within a few days.
                   </p>
                 )}
               </div>

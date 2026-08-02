@@ -23,7 +23,7 @@ export const categories: Category[] = [
   "Street",
 ];
 
-// Per-photo catalogue — title + category authored from the actual frames in /public/images.
+// Per-photo catalogue: title and category authored from the actual frames in /public/images.
 type Entry = { file: string; title: string; category: Category; year: string };
 
 const catalogue: Entry[] = [

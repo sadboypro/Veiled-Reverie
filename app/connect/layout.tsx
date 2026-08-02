@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     "Let's create something timeless. Commission a shoot or start a conversation with Prosper Mayaki of Veiled Reverie.",
   openGraph: {
     title: "Connect | Veiled Reverie",
-    description: "Let's create something timeless — get in touch with Prosper Mayaki.",
+    description: "Let's create something timeless. Get in touch with Prosper Mayaki.",
   },
 };
 
