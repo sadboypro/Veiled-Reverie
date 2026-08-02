@@ -1,0 +1,14 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tile" x1="16" y1="0" x2="16" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0d0d0f"/>
+      <stop offset="1" stop-color="#050505"/>
+    </linearGradient>
+  </defs>
+  <!-- cinematic void tile -->
+  <rect x="0.5" y="0.5" width="31" height="31" rx="7" fill="url(#tile)" stroke="#23232a"/>
+  <!-- the veil: a thin horizon drawn across the mark -->
+  <line x1="7.5" y1="15" x2="24.5" y2="15" stroke="#d4ed3c" stroke-opacity="0.28" stroke-width="1" stroke-linecap="round"/>
+  <!-- V monogram in electric acid-lime -->
+  <path d="M9 9.25 L16 23 L23 9.25" fill="none" stroke="#d4ed3c" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
