@@ -1,4 +1,3 @@
-import Preloader from "@/components/Preloader";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Philosophy from "@/components/Philosophy";
@@ -9,8 +8,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <Preloader />
-      <Header revealDelay={0.9} />
+      <Header revealDelay={0.35} />
       <main>
         <Hero />
         <Philosophy />

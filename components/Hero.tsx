@@ -50,8 +50,8 @@ export default function Hero() {
     return () => clearInterval(id);
   }, [reduce, mountRest]);
 
-  // Hero content waits for the preloader curtain to lift on first load only.
-  const base = reduce || seen ? 0 : 0.85;
+  // Brief, snappy intro on load (no preloader gate anymore).
+  const base = reduce || seen ? 0 : 0.35;
 
   return (
     <section
