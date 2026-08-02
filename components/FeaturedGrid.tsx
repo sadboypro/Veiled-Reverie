@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { clipReveal, fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
+import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 import { works, type Work } from "@/lib/works";
 import { BLUR_DATA_URL } from "@/lib/blur";
 
@@ -55,25 +55,20 @@ export default function FeaturedGrid() {
       </motion.div>
 
       <div className="mx-auto grid max-w-7xl auto-rows-[minmax(0,1fr)] grid-cols-1 gap-4 md:grid-cols-12 md:gap-6">
-        {works.map((work, i) => (
-          <WorkCard key={work.id} work={work} index={i} />
+        {works.map((work) => (
+          <WorkCard key={work.id} work={work} />
         ))}
       </div>
     </section>
   );
 }
 
-function WorkCard({ work, index }: { work: Work; index: number }) {
+function WorkCard({ work }: { work: Work }) {
   const reduce = useReducedMotion();
 
   return (
     <motion.article
       className={`group relative overflow-hidden bg-charcoal ${spanClass[work.span]}`}
-      variants={clipReveal}
-      custom={(index % 3) * 0.08}
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewportOnce}
     >
       <Link href={`/works/${work.id}`} className="block h-full w-full">
         {/* Image scales + pans gently on hover */}
